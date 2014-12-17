@@ -15,6 +15,5 @@
     "gulp-concat": "^2.4.2",
     "gulp-es6-transpiler": "^1.0.1",
     "gulp-watch": "^3.0.0",
-    "sweet.js": "^0.7.2"
   }
 }
