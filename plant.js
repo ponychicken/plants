@@ -23,13 +23,13 @@ creeper.addRule(new Rule('P', 'B+P', 0.6, 0.1));
 
 // Only branches have leaves or fruits
 // A fruit replaces the branch apex, so it stops growing
-creeper.addRule(new Rule('P', 'F', 0.9, 0));
+// creeper.addRule(new Rule('P', 'F', 0.9, 0));
 creeper.addRule(new Rule('P', '[-L]P', 0.6, 0.1));
 creeper.addRule(new Rule('P', '[+L]P', 0.6, 0.1));
 
 // Stagnate
-creeper.addRule(new Rule('A', 'A', 0.4, 0));
-creeper.addRule(new Rule('P', 'P', 0.4, 0));
+// creeper.addRule(new Rule('A', 'A', 0.4, 0));
+// creeper.addRule(new Rule('P', 'P', 0.4, 0));
 
 
 // Create draw functions
@@ -39,16 +39,18 @@ var drawLineHelper = function (data, color = '#000', thickness = 1, length = 23)
   var vec = new Point();
       vec.length = length;
       vec.angle = data.angle;
-
+      
+  if (!data.pos instanceof Point) {
+    console.error("Position was not point")
+  }  
   var endPos = data.pos + vec;
-  console.log('Drawing line', data.pos, endPos)
   var line = new Path.Line(data.pos, endPos);
   line.strokeWidth = thickness;
-  line.color = color;
+  line.strokeColor = color;
 
   return {
     angle: data.angle,
-    pos: data.pos
+    pos: endPos
   };
 };
 
@@ -74,7 +76,6 @@ creeper.addDrawingElement('F', function (data) {
 
 creeper.addDrawingElement('L', function (data) {
   // First we draw a short line, then add the leave
-
   data = drawLineHelper(data, '#00dd41', 2, 1);
 
   var leave = new Shape.Rectangle(data.pos, 6);
@@ -90,7 +91,8 @@ creeper.addDrawingElement('L', function (data) {
 
 // Branches
 onMouseDown = function () {
+  project.clear();
   creeper.updateEnvironment(new Weather(20, 4, 1));
-  creeper.advance();
+  console.log('New string: ' + creeper.advance());
   creeper.draw();
 };

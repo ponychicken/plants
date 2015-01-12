@@ -11,7 +11,8 @@ gulp.task('compile', function() {
         "Point": true,
         "Path": true,
         "Shape": true,
-        "onMouseDown": true
+        "onMouseDown": true,
+        "project": true
       }
     }))
     .pipe(gulp.dest('./dist/'));

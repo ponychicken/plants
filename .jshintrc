@@ -1,5 +1,5 @@
 {
   "undef": true,
   "esnext": true,
-  "predef": [ "Point", "Shape", "Path", "onMouseDown" ]
+  "predef": [ "Point", "Shape", "Path", "onMouseDown", "console" ]
 }
