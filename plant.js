@@ -82,7 +82,7 @@ creeper.addDrawingElement('L', function (data) {
   leave.fillColor = 'green';
 
   return data;
-});
+}); 
 
 
 // Die (and create a new apex)
@@ -96,3 +96,27 @@ onMouseDown = function () {
   console.log('New string: ' + creeper.advance());
   creeper.draw();
 };
+
+
+// http://www.knmi.nl/climatology/daily_data/getdata_day.cgi/KNMI_20150112.txt?type=text/tab-separated-values  
+// 
+// lang=en&byear=2015&bmonth=1&bday=1&eyear=2015&emonth=1&eday=11
+
+var weatherURL = "http://www.knmi.nl/climatology/daily_data/getdata_day.cgi?variabele=TG&variabele=SQ&variabele=RH&stations=344&lang=en";
+
+// Add current date
+weatherURL += "&lang=en&byear=2015&bmonth=1&bday=1&eyear=2015&emonth=1&eday=11";
+
+// Grab weather
+Papa = this.papa;
+Papa.parse(weatherURL, {
+  download: true,
+  comments: "#",
+  complete: function(results, file) {
+    console.log("Parsing complete:", results, file);
+  },
+  error: function(err, file, inputElem, reason)
+	{
+		console.log("Error:", err, file, inputElem, reason);
+	},
+});

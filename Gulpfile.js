@@ -12,13 +12,21 @@ gulp.task('compile', function() {
         "Path": true,
         "Shape": true,
         "onMouseDown": true,
-        "project": true
+        "project": true,
+        "Papa": true
       }
     }))
     .pipe(gulp.dest('./dist/'));
 });
 
+gulp.task('combine', function () {
+  gulp.src(['papaparse.js', './dist/run.js'])
+      .pipe(concat('run2.js'))
+      .pipe(gulp.dest('./dist/'));
+});
+
 gulp.task('default', function () {
-  gulp.watch('lib/*.js', ['compile']);
-  gulp.watch('plant.js', ['compile']);
+  gulp.start('compile', 'combine');
+  gulp.watch('lib/*.js', ['compile', 'combine']);
+  gulp.watch('plant.js', ['compile', 'combine']);
 });
